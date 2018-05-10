@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>war</packaging>
+  <name>hhCode</name>
+  <groupId>hh.com</groupId>
+  <artifactId>hhCode</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <!-- 相同版本号的统一设置 -->
+  <properties>
+    <org.springframework.version>3.2.6.RELEASE</org.springframework.version>
+  </properties>
+  <dependencies>
+    <!-- 需要的jar包 可以在网站查找： http://search.maven.org -->
+    <!-- 添加核心jar包 SpringMVC、 Spring、Mybatis -->
+    <!-- 整合spring框架 -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${org.springframework.version}</version>
+      <type>jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.7.2</version>
+    </dependency>
+    <!-- 整合mybatis以及mybatis与spring整合包 -->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+
+    <!-- 整合数据库连接池 -->
+    <dependency>
+      <groupId>c3p0</groupId>
+      <artifactId>c3p0</artifactId>
+      <version>0.9.1.2</version>
+    </dependency>
+
+    <!-- oracle版权问题，上传至nexus私服，从私服下载 -->
+    <!-- 数据库驱动 -->
+    <dependency>
+      <groupId>ojdbc6</groupId>
+      <artifactId>ojdbc6</artifactId>
+      <version>11.1.0.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>6.0.2</version>
+    </dependency>
+
+    <!-- 增加其他工具包,从maven本地下载或者从nexus下载 -->
+    <!-- 第三方常用jar包 -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.15</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>3.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>3.9</version>
+    </dependency>
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>1.0.13</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.9</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp.jstl</groupId>
+      <artifactId>jstl-api</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jstl-impl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>jexcelapi</groupId>
+      <artifactId>jxl</artifactId>
+      <version>2.4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+    <!-- 转json格式需要的jar包
+    json-lib-2.4-jdk15.jar    ezmorph-1.0.6.jar  commons-logging.jar
+    commons-lang.jar   commons-collections.jar   commons-beanutils.jar
+    -->
+    <dependency>
+      <groupId>json-lib</groupId>
+      <artifactId>json-lib</artifactId>
+      <version>2.1.jdk15</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.5</version>
+    </dependency>
+    <dependency>
+      <groupId>ezmorph</groupId>
+      <artifactId>ezmorph</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+
+    <!-- 防止和tomcat中的jar冲突 -->
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>6.0.45</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>3.0-alpha-1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.2.1-b03</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.specs</groupId>
+      <artifactId>geronimo-servlet_3.0_spec</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+  </dependencies>
+
+  <!-- 假如有私服:访问顺序 首先访问本地仓库 本地仓库没有,则访问私服仓库 私服仓库也没有,则访问中心仓库 repositories:加载的是第三方项目使用的jar包 -->
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>public</id>
+      <name>public</name>
+      <url>http://localhost:8081/nexus/content/groups/public/</url>
+    </repository>
+  </repositories>
+
+  <!-- pluginRepositories:加载的是maven生命周期插件的jar包 -->
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>public</id>
+      <name>public</name>
+      <url>http://localhost:8081/nexus/content/groups/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <!-- 分销管理,把jar包发布到私服中 -->
+  <distributionManagement>
+    <!-- 发布到快照版本的仓库,及测试版本仓库 -->
+    <snapshotRepository>
+      <id>snapshots</id>
+      <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <!-- 发布到发行版本的仓库中,也可以发布到3rd party仓库 -->
+    <repository>
+      <id>releases</id>
+      <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
+</project>

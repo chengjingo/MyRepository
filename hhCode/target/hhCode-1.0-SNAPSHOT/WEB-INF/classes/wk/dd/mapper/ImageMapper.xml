@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ty_image">
+	<resultMap id="imageResultMap" type="wk.dd.domain.Image">
+		<id property="id" column="IMAGE_ID" />
+		<result property="base64" column="BASE64"/>
+	</resultMap>
+	
+	
+	<insert id="insertInfo" parameterType="wk.dd.domain.Image">
+		     insert into ty_image 
+		           values(
+		              seq_image_id.Nextval,
+		              empty_blob()
+		           )
+	</insert>
+	
+   <select id="findById" resultMap="imageResultMap" parameterType="java.lang.String">
+  		<!-- 
+  		 select IMAGE_ID, Blob_To_Varchar(BASE64) BASE64 from ty_image where IMAGE_ID = #{id}
+  		 -->
+  		select * from ty_image where IMAGE_ID = #{id}
+   </select>
+	
+   <select id="findBybase" resultMap="imageResultMap">
+   		select * from ty_image where length(BASE64)= 0 for update
+   </select>
+	
+	
+	<!-- 查询
+	<select id="findInfo" parameterType="java.util.Map" resultMap="factoryResultMap">
+	   select * from (
+		   select row_.*, rownum rownum_ from (
+				select * from pd_factory p where 1=1
+		    		<if test=" fullName!=null and fullName!='' ">
+		    			and p.full_name like '%'||#{fullName}||'%'
+		    		</if>
+		    		<if test=" contacts!=null and contacts!='' ">
+		    			and p.contacts like '%'||#{contacts}||'%'
+		    		</if>
+		    		<if test=" inspector!=null and inspector!='' ">
+		    			and p.inspector like '%'||#{inspector}||'%' 
+		    		</if>
+		    		<if test=" state!=null and state!='' ">
+		    			and p.state = #{state}
+		    		</if>
+		    		<if test=" startTime!=null and startTime!='' ">
+		    			<![CDATA[ and p.create_time >= to_date(#{startTime},'yyyy-mm-dd') ]]>
+		    		</if>
+		    		<if test=" endTime!=null and endTime!='' ">
+		    			<![CDATA[ and p.create_time < to_date(#{endTime},'yyyy-mm-dd')+1]]>
+		    		</if>
+      <![CDATA[ order by p.create_time ) row_  ) where rownum_ > #{start} and rownum_ <= #{end}  ]]>
+	</select>
+	<select id="findInfoCounts" parameterType="java.util.Map" resultType="java.lang.Integer">
+				select count(1) from pd_factory p where 1=1
+		    		<if test="fullName!=null and fullName!='' ">
+		    			and p.full_name like '%'||#{fullName}||'%'
+		    		</if>
+		    		<if test="contacts!=null and contacts!='' ">
+		    			and p.contacts like '%'||#{contacts}||'%'
+		    		</if>
+		    		<if test="inspector!=null and inspector!='' ">
+		    			and p.inspector like '%'||#{inspector}||'%' 
+		    		</if>
+		    		<if test=" startTime!=null and startTime!='' ">
+		    			<![CDATA[ and p.create_time >= to_date(#{startTime},'yyyy-mm-dd') ]]>
+		    		</if>
+		    		<if test=" endTime!=null and endTime!='' ">
+		    			<![CDATA[ and p.create_time < to_date(#{endTime},'yyyy-mm-dd')+1]]>
+		    		</if>
+	</select>
+	<update id="updateInfo" parameterType="cn.wl.domain.Factory">
+		update pd_factory p 
+				set p.factory_name = #{factoryName},p.contacts =#{contacts},
+					p.phone=#{phone},p.mobile=#{mobile},p.fax=#{fax},
+			        p.inspector =#{inspector},p.full_name=#{fullName},
+			        p.cnote=#{cnote},p.update_time = systimestamp
+		where p.factory_id = #{id}
+	</update>
+	<delete id="deleteInfo" parameterType="java.util.Map">
+		delete from pd_factory p 
+			where p.factory_id in 
+			<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+	            #{item}  
+	        </foreach>  
+	</delete>
+	<update id="updateState" parameterType="Map">
+		update pd_factory p set p.state = #{state}
+			where p.factory_id  in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	 -->
+	 
+</mapper>

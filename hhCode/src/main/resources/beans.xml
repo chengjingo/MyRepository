@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/mvc
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/aop
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+
+	<!-- 1.扫描包service,dao -->
+	<context:component-scan base-package="wk.dd.service,wk.dd.dao"/>
+
+	<!-- 2.数据库连接jdbc.properties文件 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+
+	<!-- 3.数据源DateSource -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverClassName}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+
+		<property name="maxPoolSize" value="${c3p0.pool.maxPoolSize}"/>
+		<property name="minPoolSize" value="${c3p0.pool.minPoolSize}"/>
+		<property name="initialPoolSize" value="${c3p0.pool.initialPoolSize}"/>
+		<property name="acquireIncrement" value="${c3p0.pool.acquireIncrement}"/>
+	</bean>
+	<!-- 4.Session工厂 SqlSessionFactory-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 跟mybatis进行整合 -->
+		<property name="configLocation" value="classpath:sqlMapConfig.xml"/>
+		<property name="mapperLocations" value="classpath:wk/dd/mapper/*.xml"/>
+	</bean>
+
+	<!-- DAO接口所在包名，Spring会自动查找其下的类
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="wk.dd.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+	-->
+	<!-- 5.事务管理tx -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<!-- 配置事务通知属性 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<!-- 定义事务传播属性 -->
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="view*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置事务切面 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* wk.dd.service.*.*(..))" id="txPointCut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut" />
+	</aop:config>
+
+	<!-- 上传文件配置 -->
+	<bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 设置编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 最大文件大小，-1为不限制大小 -->
+		<property name="maxUploadSize" value="-1"/>
+		<!-- 设置内存最大值-->
+		<property name="maxInMemorySize" value="40960"></property>
+	</bean>
+</beans>
